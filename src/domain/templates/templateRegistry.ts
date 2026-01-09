@@ -1,5 +1,6 @@
 // Entities
 import { createComponentStructureLib } from '@domain/entities/lib/createComponentStructure'
+import { createComponentStructureTailwind } from '@domain/entities/taiwind/createComponentStructure'
 
 // Types
 import { TemplateStructure } from './types'
@@ -19,6 +20,7 @@ export function runTemplate(
 ): TemplateStructure {
   if (templateId === 'component') {
     if (projectId === 'lib') return createComponentStructureLib(params)
+    if (projectId === 'tailwind') return createComponentStructureTailwind(params)
   }
 
   throw new Error(`Unknown template: ${templateId}`)

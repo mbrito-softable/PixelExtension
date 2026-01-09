@@ -95,7 +95,8 @@ var NodeFileSystemAdapter = class {
 
 // src/domain/projects/projectRegistry.ts
 var PROJECTS = [
-  { id: "lib", label: "Project: Component Library", templates: [{ id: "component", label: "Component" }] }
+  { id: "lib", label: "Project: Component Library", templates: [{ id: "component", label: "Component" }] },
+  { id: "tailwind", label: "Project: Tailwind", templates: [{ id: "component", label: "Component" }] }
 ];
 
 // src/shared/utils/pathUtils.ts
@@ -178,11 +179,47 @@ export function create${normalizedComponentName}Styles(
   };
 }
 
+// src/domain/entities/taiwind/createComponentStructure.ts
+function createComponentStructureTailwind(params) {
+  const normalizedComponentName = normalizeComponentName(params.name);
+  return {
+    folderName: normalizedComponentName,
+    folders: ["components"],
+    files: [
+      {
+        path: "index.tsx",
+        content: `// External Libraries
+import clsx from 'clsx'
+import type React from 'react'
+
+// Types
+import type { ${normalizedComponentName}Props } from './types'
+
+export const ${normalizedComponentName}: React.FC<${normalizedComponentName}Props> = props => {
+  return <div className={clsx('w-full flex')}></div>
+}
+
+`
+      },
+      {
+        path: "types.ts",
+        content: `export interface ${normalizedComponentName}Props {
+  form: string
+}
+
+`
+      }
+    ]
+  };
+}
+
 // src/domain/templates/templateRegistry.ts
 function runTemplate(projectId, templateId, params) {
   if (templateId === "component") {
     if (projectId === "lib")
       return createComponentStructureLib(params);
+    if (projectId === "tailwind")
+      return createComponentStructureTailwind(params);
   }
   throw new Error(`Unknown template: ${templateId}`);
 }

@@ -3,7 +3,7 @@
   "displayName": "Pixel Structures",
   "publisher": "MauricioTeixeira",
   "author": "Mauricio Brito",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Aliases for general react components",
   "engines": {
     "vscode": "^1.107.0"
